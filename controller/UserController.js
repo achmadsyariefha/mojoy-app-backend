@@ -8,6 +8,23 @@ const jsonwebtoken = require('jsonwebtoken');
 exports.userRegister = async (request, response) => {
     const { username, email, password } = request.body;
 
+    const userList = await User.findOne({username: username});
+    const userEmail = await User.findOne({email: email});
+
+    if (userList) {
+        return response.status(404).json({
+            status: false,
+            message: 'Username telah dipakai'
+        })
+    }
+
+    if (userEmail) {
+        return response.status(404).json({
+            status: false,
+            message: 'Email telah terdaftar'
+        })
+    }
+
     const hashPassword = await bcryptjs.hash(password, 10);
 
     const user = new User({
@@ -18,7 +35,8 @@ exports.userRegister = async (request, response) => {
 
     user.save();
 
-    return response.status(200).json({
+    return response.status(201).json({
+        status: true,
         message: 'User telah dibuat'
     });
 }
@@ -34,18 +52,21 @@ exports.userLogin = async (request, response) => {
                 id: usernameData._id,
             }
             const token = await jsonwebtoken.sign(data, process.env.JWT_SECRET);
-            return response.status(200).json({
+            return response.status(201).json({
+                status: true,
                 message: 'Logged in',
                 token: token,
             });
         } else {
             return response.status(404).json({
+                status: false,
                 message: 'User atau password salah',
             });
         }
     } else {
         return response.status(404).json({
-            message: 'User atau password salah',
+            status: false,
+            message: 'User atau email salah',
         });
     }
 }
