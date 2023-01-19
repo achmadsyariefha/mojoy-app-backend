@@ -1,0 +1,31 @@
+{
+  "name": "mojoy-app-backend",
+  "version": "1.0.0",
+  "description": "Mojoy App Backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/achmadsyariefha/mojoy-app-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/achmadsyariefha/mojoy-app-backend/issues"
+  },
+  "homepage": "https://github.com/achmadsyariefha/mojoy-app-backend#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongodb": "4.13",
+    "mongoose": "^6.8.4",
+    "nodemon": "^2.0.20"
+  }
+}
