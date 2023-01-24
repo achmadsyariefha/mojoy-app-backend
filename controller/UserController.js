@@ -70,3 +70,16 @@ exports.userLogin = async (request, response) => {
         });
     }
 }
+
+// exports.updateUser = async (request, response) => {
+//     const { username, email, password } = request.body;
+//     const usernameData = await User.findOne({$or: [{username: username}, {email: username}]});
+// }
+
+exports.getSingleUser = async (request, response) => {
+    const user = await User.findOne({_id: request.id});
+    return response.status(200).json({
+        message: 'user available',
+        data: user
+    })
+}
