@@ -7,7 +7,7 @@ const middleware = require('../middleware/middleware');
 
 router.post('/daftar', validationRegister, runValidation, userRegister);
 router.post('/login', validationLogin, runValidation, userLogin);
-router.get('/user', middelware, getSingleUser);
+router.get('/user', middleware, getSingleUser);
 // router.put('/user/:id');
 
 module.exports = router;
