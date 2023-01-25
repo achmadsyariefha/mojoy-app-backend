@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 const routeUser = require('./routes/User');
+const routeProduct = require('./routes/Product');
 
 mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
@@ -21,6 +22,7 @@ mongoose.connect(process.env.MONGO_URL, {
 
 app.use(bodyParser.json());
 app.use('/', routeUser);
+app.use('/user', routeProduct);
 
 app.listen(process.env.PORT, (request, response) => {
     console.log(`Server berjalan pada port ${process.env.PORT}`);
