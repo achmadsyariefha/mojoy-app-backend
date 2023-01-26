@@ -71,11 +71,6 @@ exports.userLogin = async (request, response) => {
     }
 }
 
-// exports.updateUser = async (request, response) => {
-//     const { username, email, password } = request.body;
-//     const usernameData = await User.findOne({$or: [{username: username}, {email: username}]});
-// }
-
 exports.getSingleUser = async (request, response) => {
     const user = await User.findOne({_id: request.id});
     return response.status(200).json({
@@ -83,3 +78,33 @@ exports.getSingleUser = async (request, response) => {
         data: user
     })
 }
+
+exports.getAllUser = async (request, response) => {
+    const listUser = await User.find({});
+    return response.status(200).json({
+        data: listUser
+    })
+}
+
+// exports.updateUser = async (request, response) => {
+//     const { username, password } = request.body;
+//     const usernameData = await User.findOne({$or: [{username: username}, {email: username}]});
+
+//     if (usernameData) {
+//         const passwordData = await bcryptjs.compare(password, usernameData.password);
+//         if (passwordData) {
+//             const { newUsername, newEmail, newPassword } = request.body;
+
+//         } else {
+//             return response.status(404).json({
+//                 status: false,
+//                 message: 'User gagal diupdate, User atau password salah',
+//             });
+//         }
+//     } else {
+//         return response.status(404).json({
+//             status: false,
+//             message: 'User gagal diupdate, User atau email salah',
+//         });
+//     }
+// }
