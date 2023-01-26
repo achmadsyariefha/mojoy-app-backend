@@ -22,7 +22,7 @@ mongoose.connect(process.env.MONGO_URL, {
 
 app.use(bodyParser.json());
 app.use('/', routeUser);
-app.use('/user', routeProduct);
+app.use('/product', routeProduct);
 
 app.listen(process.env.PORT, (request, response) => {
     console.log(`Server berjalan pada port ${process.env.PORT}`);
