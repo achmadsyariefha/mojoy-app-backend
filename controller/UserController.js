@@ -86,25 +86,14 @@ exports.getAllUser = async (request, response) => {
     })
 }
 
-// exports.updateUser = async (request, response) => {
-//     const { username, password } = request.body;
-//     const usernameData = await User.findOne({$or: [{username: username}, {email: username}]});
+exports.updateUser = async (request, response) => {
+    const userId = request.params.id;
 
-//     if (usernameData) {
-//         const passwordData = await bcryptjs.compare(password, usernameData.password);
-//         if (passwordData) {
-//             const { newUsername, newEmail, newPassword } = request.body;
+    const { username, email, password } = request.body;
+    const hashPassword = await bcryptjs.hash(password, 10);
+    const updatedUser = await User.findByIdAndUpdate({_id: userId},{ username: username, email: email, password: hashPassword}, {new: true});
+    return response.status(200).json({
+        data: updatedUser
+    })
 
-//         } else {
-//             return response.status(404).json({
-//                 status: false,
-//                 message: 'User gagal diupdate, User atau password salah',
-//             });
-//         }
-//     } else {
-//         return response.status(404).json({
-//             status: false,
-//             message: 'User gagal diupdate, User atau email salah',
-//         });
-//     }
-// }
+}
