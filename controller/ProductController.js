@@ -19,3 +19,14 @@ exports.addProduct = async (request, response) => {
         data: product
     });
 }
+
+exports.updateProduct = async (request, response) => {
+    const productId = request.params.id;
+
+    const { name, category, price } = request.body;
+    const updatedProduct = await Product.findByIdAndUpdate({_id: productId},{ name: name, category: category, price: price}, {new: true});
+    return response.status(200).json({
+        data: updatedProduct
+    })
+
+}
