@@ -1,6 +1,7 @@
 require('dotenv').config()
 
 const User = require('../models/UserModel');
+const token = require('../middleware/token');
 
 const bcryptjs = require('bcryptjs');
 const jsonwebtoken = require('jsonwebtoken');
@@ -51,11 +52,13 @@ exports.userLogin = async (request, response) => {
             const data = {
                 id: usernameData._id,
             }
-            const token = await jsonwebtoken.sign(data, process.env.JWT_SECRET);
+            const accessToken = await jsonwebtoken.sign(data, process.env.JWT_ACCESS_SECRET, {expiresIn: '1d'});
+            const refreshToken = await jsonwebtoken.sign(data, process.env.JWT_REFRESH_SECRET);
+            token.push(refreshToken);
             return response.status(201).json({
                 status: true,
                 message: 'Logged in',
-                token: token,
+                token: accessToken,
             });
         } else {
             return response.status(404).json({
