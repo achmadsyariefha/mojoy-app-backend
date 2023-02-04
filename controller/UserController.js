@@ -52,13 +52,14 @@ exports.userLogin = async (request, response) => {
             const data = {
                 id: usernameData._id,
             }
-            const accessToken = await jsonwebtoken.sign(data, process.env.JWT_ACCESS_SECRET, {expiresIn: '1d'});
+            const accessToken = await jsonwebtoken.sign(data, process.env.JWT_ACCESS_SECRET);
             const refreshToken = await jsonwebtoken.sign(data, process.env.JWT_REFRESH_SECRET);
             token.push(refreshToken);
             return response.status(201).json({
                 status: true,
                 message: 'Logged in',
-                token: accessToken,
+                accessToken: accessToken,
+                refreshToken: refreshToken
             });
         } else {
             return response.status(404).json({
