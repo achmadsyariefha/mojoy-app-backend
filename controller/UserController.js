@@ -54,7 +54,6 @@ exports.userLogin = async (request, response) => {
             }
             const accessToken = await jsonwebtoken.sign(data, process.env.JWT_ACCESS_SECRET);
             const refreshToken = await jsonwebtoken.sign(data, process.env.JWT_REFRESH_SECRET);
-            token.push(refreshToken);
             return response.status(201).json({
                 status: true,
                 message: 'Logged in',

@@ -1,7 +1,6 @@
 require('dotenv').config();
 
 const jsonwebtoken = require('jsonwebtoken');
-const refreshTokens = require("../middleware/token");
 
 module.exports = async (response, request, next) => {
     const refreshToken = request.header('Authorization');
